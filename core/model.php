@@ -27,23 +27,7 @@
                       ON a.`virtuemart_product_id` = b.`virtuemart_product_id`                                         
                       WHERE a.`published` = 1 
                       ";
-            try {
-                $dbh = new \PDO('mysql:host='. $db['host'] .';dbname=' . $db['dbname'], $db['user'], $db['pass']);
-                $products = $dbh->query($query);
-                if ($products->rowCount() != '0') {
-                    foreach($products as $key => $row) {
-                        $productsList[$key] = $row;
-                    }
-                } else {
-                    $productsList = [];
-                }
-
-                $dbh = null;
-                return $productsList;
-            } catch (PDOException $e) {
-                print "Error!: " . $e->getMessage() . "<br/>";
-                die();
-            }
+            return $this->getDataRequest($query);
         }
 
         public function getPublishProductsList(){
@@ -61,22 +45,7 @@
               ON  a.`virtuemart_product_id` = e.`virtuemart_product_id` 
               WHERE a.`published` = 1 and c.`product_price` > 0
               ";
-            try {
-                $dbh = new \PDO('mysql:host='. $db['host'] .';dbname=' . $db['dbname'], $db['user'], $db['pass']);
-                $products = $dbh->query($query);
-                if ($products->rowCount() != '0') {
-                    foreach($products as $key => $row) {
-                        $productsList[$key] = $row;
-                    }
-                } else {
-                    $productsList = [];
-                }
-                $dbh = null;
-                return $productsList;
-            } catch (PDOException $e) {
-                print "Error!: " . $e->getMessage() . "<br/>";
-                die();
-            }
+            return $this->getDataRequest($query);
         }
 
         public function getUnpublishProductList(){
@@ -87,22 +56,7 @@
                       ON a.`virtuemart_product_id` = b.`virtuemart_product_id`
                       WHERE a.`published` = 0 and a.`product_canon_category_id` != '197'
                       ";
-            try {
-                $dbh = new \PDO('mysql:host='. $db['host'] .';dbname=' . $db['dbname'], $db['user'], $db['pass']);
-                $products = $dbh->query($query);
-                if ($products->rowCount() != '0') {
-                    foreach($products as $key => $row) {
-                        $productsList[$key] = $row;
-                    }
-                } else {
-                    $productsList = [];
-                }
-                $dbh = null;
-                return $productsList;
-            } catch (PDOException $e) {
-                print "Error!: " . $e->getMessage() . "<br/>";
-                die();
-            }
+            return $this->getDataRequest($query);
         }
 
         public function getProductsWithoutPrice(){
@@ -115,22 +69,7 @@
                       ON  a.`virtuemart_product_id` = c.`virtuemart_product_id`                       
                       WHERE a.`published` = 1 and a.`product_canon_category_id` != '197' and c.`product_price` = '0'
                       ";
-            try {
-                $dbh = new \PDO('mysql:host='. $db['host'] .';dbname=' . $db['dbname'], $db['user'], $db['pass']);
-                $products = $dbh->query($query);
-                if ($products->rowCount() != '0') {
-                    foreach($products as $key => $row) {
-                        $productsList[$key] = $row;
-                    }
-                } else {
-                    $productsList = [];
-                }
-                $dbh = null;
-                return $productsList;
-            } catch (PDOException $e) {
-                print "Error!: " . $e->getMessage() . "<br/>";
-                die();
-            }
+            return $this->getDataRequest($query);
         }
 
         public function getProductWithoutDeliveryPrice(){
@@ -141,22 +80,7 @@
                       ON a.`virtuemart_product_id` = b.`virtuemart_product_id`                                         
                       WHERE a.`published` = 1 and (a.`product_length` is NULL or a.`product_weight` is NULL or a.`product_width` is NULL or a.`product_height` is NULL)
                       ";
-            try {
-                $dbh = new \PDO('mysql:host='. $db['host'] .';dbname=' . $db['dbname'], $db['user'], $db['pass']);
-                $products = $dbh->query($query);
-                if ($products->rowCount() != '0') {
-                    foreach($products as $key => $row) {
-                        $productsList[$key] = $row;
-                    }
-                } else {
-                    $productsList = [];
-                }
-                $dbh = null;
-                return $productsList;
-            } catch (PDOException $e) {
-                print "Error!: " . $e->getMessage() . "<br/>";
-                die();
-            }
+            return $this->getDataRequest($query);
         }
 
         public function getLowProductMedia(){
@@ -196,22 +120,7 @@
                       ON a.`virtuemart_product_id` = b.`virtuemart_product_id`                                         
                       WHERE a.`published` = 1 and LENGTH(b.`product_desc`) < 400
                       ";
-            try {
-                $dbh = new \PDO('mysql:host='. $db['host'] .';dbname=' . $db['dbname'], $db['user'], $db['pass']);
-                $products = $dbh->query($query);
-                if ($products->rowCount() != '0') {
-                    foreach($products as $key => $row) {
-                        $productsList[$key] = $row;
-                    }
-                } else {
-                    $productsList = [];
-                }
-                $dbh = null;
-                return $productsList;
-            } catch (PDOException $e) {
-                print "Error!: " . $e->getMessage() . "<br/>";
-                die();
-            }
+            return $this->getDataRequest($query);
         }
 
         public function getProductMetaTags(){
@@ -221,28 +130,12 @@
                       LEFT JOIN  `" . $db['table_prefix'] . "virtuemart_products_ru_ru` b
                       ON a.`virtuemart_product_id` = b.`virtuemart_product_id`                                         
                       WHERE a.`published` = 1 and a.`virtuemart_product_id` IN (761,762) 
-                      "; 
-            try {
-                $dbh = new \PDO('mysql:host='. $db['host'] .';dbname=' . $db['dbname'], $db['user'], $db['pass']);
-                $products = $dbh->query($query);
-                if ($products->rowCount() != '0') {
-                    foreach($products as $key => $row) {
-                        $productsList[$key] = $row;
-                    }
-                } else {
-                    $productsList = [];
-                }
-                $dbh = null;
-                return $productsList;
-            } catch (PDOException $e) {
-                print "Error!: " . $e->getMessage() . "<br/>";
-                die();
-            }
+                      ";
+            return $this->getDataRequest($query);
         }
 
         public function getLowProductSpec(){
             $db = self:: getDBconnect();
-
             $query = "SELECT a.`virtuemart_product_id`, b.`product_name`, c.`spec`
                           FROM (SELECT `virtuemart_product_id` FROM `" . $db['table_prefix'] . "virtuemart_products` WHERE `published` = '1') a                                                 
                           LEFT JOIN  (SELECT `virtuemart_product_id`, `product_name` FROM `" . $db['table_prefix'] . "virtuemart_products_ru_ru`) b
@@ -251,18 +144,23 @@
                           ON a.`virtuemart_product_id` = c.`virtuemart_product_id`
                           WHERE c.`spec` < '5'                                           
                       ";
+            return $this->getDataRequest($query);
+        }
+
+        public function getDataRequest(string $query): array {
+            $db = self:: getDBconnect();
             try {
                 $dbh = new \PDO('mysql:host='. $db['host'] .';dbname=' . $db['dbname'], $db['user'], $db['pass']);
+                $list = [];
                 $products = $dbh->query($query);
                 foreach($products as $key => $row) {
-                    $LowProductSpec[$key] = $row;
+                    $list[$key] = $row;
                 }
                 $dbh = null;
-                return $LowProductSpec;
+                return $list;
             } catch (PDOException $e) {
                 print "Error!: " . $e->getMessage() . "<br/>";
                 die();
             }
-            
         }
     }
