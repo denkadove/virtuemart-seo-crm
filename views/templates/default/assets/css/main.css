@@ -1,0 +1,21 @@
+table {
+    border-collapse: collapse; /* Убираем двойные линии между ячейками */
+    width: 1280px; /* Ширина таблицы */
+}
+
+th {
+    background: #fc0!important; /* Цвет фона ячейки */
+    height: 40px; /* Высота ячеек */
+    min-width: 50px; /* Ширина ячеек */
+    vertical-align: bottom; /* Выравнивание по нижнему краю */
+    padding: 0; /* Убираем поля вокруг текста */
+}
+
+.danger_value {
+    color: #fff;
+    background-color: #f93154;
+}
+
+#gtx-trans {
+    display: none;
+}

@@ -1,3 +1,18 @@
 <?php
-    // namespace Core;
+    namespace Core;
+
+    class baseRouter {
+
+        public function __construct(){
+
+        }
+
+        public function getViewByRoute(){
+            return '';
+        }
+
+
+
+
+    }
     

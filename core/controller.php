@@ -1,12 +1,11 @@
 <?php
     namespace Core;
-    
+
      class baseController{
 
-        public $model;
-        public $productsList;
+         private array $productsList;
 
-        public function  __construct($model){
+         public function  __construct($model){
              $this->model = $model;
              $this->productsList = self::getCheckedProductList($model->getPublishProductsList());
          }
@@ -22,7 +21,9 @@
 
         public function check_product_errors($productsList){
              if ($productsList["published"] == '1') {
-                 if ($productsList["product_price"] <= $productsList["product_override_price"]) { return false; };
+                 if ($productsList["product_price"] <= $productsList["product_override_price"]) {
+                     return false;
+                 }
                  if ( ($productsList["product_price"] > $productsList["product_override_price"]) and
                      ($productsList["override"] == 0) and
                      ($productsList["product_override_price"] > 0)){
