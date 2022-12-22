@@ -3,11 +3,13 @@
 
     class baseModel {
 
-        public function __construct(){
+        public function __construct()
+        {
 
         }
 
-        public function  getDBconnect(){
+        public function  getDBconnect(): array
+        {
             $config = (array) new crmConfig;
             $db['availability_custom_field_id'] = $config["availability_custom_field_id"];
             $db['tax_custom_field_id'] = $config["tax_custom_field_id"];
@@ -19,7 +21,8 @@
             return $db;
         }
 
-        public  function getProductList(){
+        public  function getProductList(): array
+        {
             $db = self:: getDBconnect();
             $query = "SELECT a.`virtuemart_product_id`, b.`product_name`
                       FROM `" . $db['table_prefix'] . "virtuemart_products` a
@@ -30,7 +33,8 @@
             return $this->getDataRequest($query);
         }
 
-        public function getPublishProductsList(){
+        public function getPublishProductsList(): array
+        {
             $db = self::getDBconnect();
             $query = "SELECT b.`product_name`, a.`virtuemart_product_id`, a.`product_in_stock`, a.`published`, a.`product_canon_category_id`, 
                     a.`product_discontinued`, c.`product_price`, c.`override`, c.`product_override_price`, c.`price_quantity_start`, d.`availability`, e.`tax`
@@ -48,7 +52,8 @@
             return $this->getDataRequest($query);
         }
 
-        public function getUnpublishProductList(){
+        public function getUnpublishProductList(): array
+        {
             $db = self::getDBconnect();
             $query = "SELECT b.`product_name`, a.`virtuemart_product_id`, a.`published`, a.`product_canon_category_id`                             
                       FROM `" . $db['table_prefix'] . "virtuemart_products` a
@@ -59,7 +64,8 @@
             return $this->getDataRequest($query);
         }
 
-        public function getProductsWithoutPrice(){
+        public function getProductsWithoutPrice(): array
+        {
             $db = self:: getDBconnect();
             $query = "SELECT b.`product_name`, a.`virtuemart_product_id`, c.`product_price`
                       FROM `" . $db['table_prefix'] . "virtuemart_products` a
@@ -72,7 +78,8 @@
             return $this->getDataRequest($query);
         }
 
-        public function getProductWithoutDeliveryPrice(){
+        public function getProductWithoutDeliveryPrice(): array
+        {
             $db = self:: getDBconnect();
             $query = "SELECT b.`product_name`, a.`virtuemart_product_id`, a.`product_length`, a.`product_width`, a.`product_height`, a.`product_weight`
                       FROM `" . $db['table_prefix'] . "virtuemart_products` a
@@ -83,10 +90,11 @@
             return $this->getDataRequest($query);
         }
 
-        public function getLowProductMedia(){
+        public function getLowProductMedia(): array
+        {
             $productsList = $this->getProductList();
             $db = self:: getDBconnect();
-
+            //TODO rewrite this!!!
             foreach ($productsList as $key => $value) {
                 $productId = $value["virtuemart_product_id"];
                 $query = "SELECT COUNT(`virtuemart_media_id`) as count
@@ -112,7 +120,8 @@
             return $lowMediaProductsList;
         }
 
-        public function getLowProductDescription(){
+        public function getLowProductDescription(): array
+        {
             $db = self:: getDBconnect();
             $query = "SELECT a.`virtuemart_product_id`, b.`product_name`,  b.`product_desc`
                       FROM `" . $db['table_prefix'] . "virtuemart_products` a
@@ -123,18 +132,21 @@
             return $this->getDataRequest($query);
         }
 
-        public function getProductMetaTags(){
+        public function getProductMetaTags(): array
+        {
+            $config = (array) new crmConfig;
             $db = self:: getDBconnect();
             $query = "SELECT a.`virtuemart_product_id`, b.`product_name`,  b.`metadesc`, b.`customtitle`, b.`product_desc`
                       FROM `" . $db['table_prefix'] . "virtuemart_products` a
                       LEFT JOIN  `" . $db['table_prefix'] . "virtuemart_products_ru_ru` b
                       ON a.`virtuemart_product_id` = b.`virtuemart_product_id`                                         
-                      WHERE a.`published` = 1 and a.`virtuemart_product_id` IN (761,762) 
+                      WHERE a.`published` = 1 and a.`virtuemart_product_id` IN (". $config['metatag_product_list'] ."); 
                       ";
             return $this->getDataRequest($query);
         }
 
-        public function getLowProductSpec(){
+        public function getLowProductSpec(): array
+        {
             $db = self:: getDBconnect();
             $query = "SELECT a.`virtuemart_product_id`, b.`product_name`, c.`spec`
                           FROM (SELECT `virtuemart_product_id` FROM `" . $db['table_prefix'] . "virtuemart_products` WHERE `published` = '1') a                                                 
@@ -147,7 +159,8 @@
             return $this->getDataRequest($query);
         }
 
-        public function getDataRequest(string $query): array {
+        public function getDataRequest(string $query): array
+        {
             $db = self:: getDBconnect();
             try {
                 $dbh = new \PDO('mysql:host='. $db['host'] .';dbname=' . $db['dbname'], $db['user'], $db['pass']);
@@ -163,4 +176,5 @@
                 die();
             }
         }
+
     }

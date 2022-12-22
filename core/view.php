@@ -3,12 +3,17 @@
 
     class baseView{
 
-        public function __construct($model, $controller) {
-            $this->model = $model;
-            $this->controller = $controller;//
+        private baseController $controller;
+        private baseModel $model;
+
+        public function __construct()
+        {
+            $this->model = new namespace\baseModel();
+            $this->controller = new namespace\baseController();
         }
 
-        public function getData(){
+        public function getData()
+        {
             $publishProductsList = $this->model->getPublishProductsList();
             $checkedProductsList =  $this->controller->getCheckedProductList($publishProductsList);
             $unpublishProductsList = $this->model->getUnpublishProductList();

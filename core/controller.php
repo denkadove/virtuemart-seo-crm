@@ -4,13 +4,15 @@
      class baseController{
 
          private array $productsList;
+         private baseModel $model;
 
-         public function  __construct($model){
-             $this->model = $model;
-             $this->productsList = self::getCheckedProductList($model->getPublishProductsList());
+         public function  __construct(){
+             $this->model = new namespace\baseModel();
+             $this->productsList = self::getCheckedProductList($this->model->getPublishProductsList());
          }
 
-        public function getCheckedProductList($productsList){
+         public function getCheckedProductList(array $productsList): array
+        {
              $checkedProductsList = [];
              foreach ($productsList as $key => $product){
                  $product["hasError"] = !self::check_product_errors($product);                  
@@ -19,7 +21,8 @@
              return $checkedProductsList;
         }
 
-        public function check_product_errors($productsList){
+         public function check_product_errors(array $productsList): bool{
+             //TODO     REWRITE IT
              if ($productsList["published"] == '1') {
                  if ($productsList["product_price"] <= $productsList["product_override_price"]) {
                      return false;
