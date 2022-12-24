@@ -177,4 +177,21 @@
             }
         }
 
+        public function isAuth():bool {
+            //TODO rewrite
+            define('ADMIN', 'admin');
+            if (isset($_SESSION['is_auth'])) {
+                if ($_SESSION['is_auth'] === true) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                $_SESSION['is_auth'] = false;
+                return false;
+            }
+        }
+
+
+
     }

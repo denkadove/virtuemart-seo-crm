@@ -19,5 +19,8 @@
     $view = new baseView();
     $rout = new baseRouter();
 
+    session_start();
     $view->getData();
+
+
 
