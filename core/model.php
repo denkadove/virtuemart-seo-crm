@@ -92,31 +92,21 @@
 
         public function getLowProductMedia(): array
         {
-            $productsList = $this->getProductList();
             $db = self:: getDBconnect();
             //TODO rewrite this!!!
-            foreach ($productsList as $key => $value) {
-                $productId = $value["virtuemart_product_id"];
-                $query = "SELECT COUNT(`virtuemart_media_id`) as count
-                          FROM `" . $db['table_prefix'] . "virtuemart_product_medias`
-                          WHERE `virtuemart_product_id` = " . $productId . " 
-                      ";
-                try {
-                    $dbh = new \PDO('mysql:host='. $db['host'] .';dbname=' . $db['dbname'], $db['user'], $db['pass']);
-                    foreach ($dbh->query($query) as $row){
-                        if  ($row['count'] < '3') {
-                            $lowMediaProductsList[$key]['virtuemart_product_id'] = $value["virtuemart_product_id"];;
-                            $lowMediaProductsList[$key]['product_name'] = $value['product_name'];
-                            $lowMediaProductsList[$key]['count_media'] = $row['count'];
-                        }
-                    }
-                    $dbh = null;
-                } catch (PDOException $e) {
-                    print "Error!: " . $e->getMessage() . "<br/>";
-                    die();
-                }
+            $query = "SELECT `virtuemart_product_id`, `product_name`, `count_media`, `published` 
+                        FROM (SELECT `virtuemart_product_id`, COUNT(*) as count_media from `" . $db['table_prefix'] . "virtuemart_product_medias`
+                        GROUP BY `virtuemart_product_id`) as t1 
+                        LEFT JOIN `" . $db['table_prefix'] . "virtuemart_products_ru_ru` using (`virtuemart_product_id`)
+                        LEFT JOIN `" . $db['table_prefix'] . "virtuemart_products` using (`virtuemart_product_id`) 
+                        WHERE `count_media` < 3 AND `virtuemart_product_id` <> 0 AND `published` = 1;";
+            $result = $this->getDataRequest($query);
+            $lowMediaProductsList = [];
+            foreach ($result as $key =>  $value) {
+                $lowMediaProductsList[$key]['virtuemart_product_id'] = $value["virtuemart_product_id"];
+                $lowMediaProductsList[$key]['product_name'] = $value['product_name'];
+                $lowMediaProductsList[$key]['count_media'] = $value['count_media'];
             }
-
             return $lowMediaProductsList;
         }
 

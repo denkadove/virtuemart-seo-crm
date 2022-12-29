@@ -7,10 +7,10 @@
     <?php
     foreach ($getLowProductMedia as $key => $value) {
         echo '<tr>
-                                      <td title="id товара">' . $value["virtuemart_product_id"] . '</td>
-                                      <td title="название товара">' . $value["product_name"] . '</td>
-                                      <td title="кол-во картинок">' . $value["count_media"] . '</td>
-                                  </tr>';
+                  <td title="id товара">' . $value["virtuemart_product_id"] . '</td>
+                  <td title="название товара">' . $value["product_name"] . '</td>
+                  <td title="кол-во картинок">' . $value["count_media"] . '</td>
+             </tr>';
     }
     ?>
 </table>

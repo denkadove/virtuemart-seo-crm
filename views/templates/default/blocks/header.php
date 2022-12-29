@@ -28,7 +28,7 @@
 
             <div class="col-md-3 text-end">
                 <button type="button" class="btn btn-outline-primary me-2">
-                    <a href="№" class="link">Админка</a>
+                    <a href="#" class="link">Админка</a>
                 </button>
                 <button type="button" class="btn btn-outline-primary me-2">
                     <a href="index.php?auth=logout" class="link">Выйти</a>
@@ -52,7 +52,9 @@
                 <button class="nav-link" id="no-delivery-price-tab" data-bs-toggle="tab" data-bs-target="#no-delivery-price-tab-pane" type="button" role="tab" aria-controls="no-delivery-price-tab-pane" aria-selected="false">Без цен доставки (<?php echo count($productWithoutDeliveryPrice) ?>)</button>
             </li>
             <li class="nav-item" role="presentation">
-                <button class="nav-link" id="no-photo-tab" data-bs-toggle="tab" data-bs-target="#no-photo-tab-pane" type="button" role="tab" aria-controls="no-photo-tab-pane" aria-selected="false">Мало фото (<?php echo count($getLowProductMedia) ?>)</button>
+                <button class="nav-link" id="no-photo-tab" data-bs-toggle="tab" data-bs-target="#no-photo-tab-pane"
+                        type="button" role="tab" aria-controls="no-photo-tab-pane" aria-selected="false">Мало фото
+                    (<?php echo count($getLowProductMedia) ?>)</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="low-desc-tab" data-bs-toggle="tab" data-bs-target="#low-desc-tab-pane" type="button" role="tab" aria-controls="low-desc-tab-pane" aria-selected="false">Короткое описание (<?php echo count($getLowProductDescription) ?>)</button>
