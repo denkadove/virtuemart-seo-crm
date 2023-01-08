@@ -5,17 +5,17 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="yandex" content="noindex, nofollow" />
-    <link rel="shortcut icon" href="views/templates/default/assets/images/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="views/templates/default/assets/css/main.css">
+    <link rel="shortcut icon" href="templates/default/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="templates/default/assets/css/main.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
     <title>CRM</title>
 </head>
 
 <body class="text-center">
     <?php //TODO move to model
-        $config = new Core\crmConfig();
+        global $config; // = new Core\crmConfig();
         if(!empty($_POST['login']) && !empty($_POST['password'])){
-            if ($_POST['login'] === $config->crm_user  && $_POST['password'] === $config->crm_password){
+            if ($_POST['login'] === $config['crm_user']  && $_POST['password'] === $config['crm_password']){
                 $_SESSION['is_auth'] = true;
                 header('Location: /');
                 die;
