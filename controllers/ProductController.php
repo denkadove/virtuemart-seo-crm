@@ -21,7 +21,7 @@ class ProductController extends BaseController
         return $checkedProductsList;
     }
 
-    public function check_product_errors(array $productsList): bool{
+    public function check_product_errors(array $productsList) {
         //TODO     REWRITE IT
         if ($productsList["published"] == '1') {
             if ($productsList["product_price"] <= $productsList["product_override_price"]) {
