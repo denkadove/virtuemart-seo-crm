@@ -25,9 +25,9 @@
                                             <td title="id товара">' . $value["virtuemart_product_id"] . '</td>                                        
                                             <td title="название товара">' . $value["product_name"] . '</td>
                                             <td title="кол-во товара по сайту">' . $value["product_in_stock"] . '</td>
-                                            <td title="базовая цена товара">' . rtrim(rtrim($value["product_price"],"0"),localeconv()['decimal_point']) . '</td>
+                                            <td title="базовая цена товара">' . rtrim(rtrim($value["product_price"] ?? '') ?? '',localeconv()['decimal_point']) . '</td>
                                             <td title="перезаписать цену товара">' . $override  . '</td>
-                                            <td title="цена товара со скидкой">' . rtrim(rtrim($value["product_override_price"],"0"),localeconv()['decimal_point']) . '</td>
+                                            <td title="цена товара со скидкой">' . rtrim(rtrim($value["product_override_price"] ?? '') ?? '',localeconv()['decimal_point']) . '</td>
                                             <td title="товар опубликован">' . $published . '</td>
                                             <td title="настраиваемое поле наличие">' . $value["availability"] . '</td>
                                             <td title="настраиваемое поле скидка">' . $value["tax"] . '</td>
